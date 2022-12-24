@@ -16,6 +16,7 @@ import {
     SubscriptionsOutlined,
     VideoLibraryOutlined
 } from "@mui/icons-material";
+import {Link} from "react-router-dom";
 
 const Container = styled.div`
   position: sticky;
@@ -87,10 +88,12 @@ const Menu = ({darkMode, setDarkMode}:MenuProps) => {
     return (
         <Container>
             <Wrapper>
-                <Logo>
-                    <Img src={AlexTube} alt=''/>
-                    AlexTube
+                <Link to='/' style={{textDecoration: "none", color:"inherit"}}>
+                    <Logo>
+                        <Img src={AlexTube} alt=''/>
+                        AlexTube
                 </Logo>
+                </Link>
                 <Item>
                     <HomeIcon/>
                     Home
@@ -158,9 +161,8 @@ const Menu = ({darkMode, setDarkMode}:MenuProps) => {
                 </Item>
                 <Item onClick={()=>setDarkMode(!darkMode)}>
                     <SettingsBrightnessOutlined/>
-                    Light Mode
+                    {darkMode ? 'Light' : 'Dark'} Mode
                 </Item>
-
 
             </Wrapper>
         </Container>
