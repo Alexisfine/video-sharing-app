@@ -1,5 +1,6 @@
 const {createError} = require("../middlewares/error");
 const UserModel = require('../models/Users');
+const VideoModel = require('../models/Videos')
 
 
 const update = async (req, res, next) => {
@@ -69,11 +70,28 @@ const unsubscribe = async (req, res, next) => {
 }
 
 const like = async (req, res, next) => {
-
+    const id = req.user.id;
+    const videoId = req.params.videoId;
+    try {
+        await VideoModel.findByIdAndUpdate(videoId, {
+            $addToSet:{likes:id},
+            $pull:{dislikes:id},
+        });
+        res.status(200).json('The video has been liked');
+    } catch (err) {
+        next(err);
+    }
 }
 
 const dislike = async (req, res, next) => {
+    const id = req.user.id;
+    const videoId = req.params.videoId;
     try {
+        await VideoModel.findByIdAndUpdate(videoId, {
+            $addToSet:{dislikes:id},
+            $pull:{likes:id},
+        });
+        res.status(200).json('The video has been disliked');
 
     } catch (err) {
         next(err);

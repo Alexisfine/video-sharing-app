@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import {IUser, IVideo} from "../dataTypes/DataTypes";
+import {format} from 'timeago.js';
+import axios from "axios";
 
 type CardProps = {
     type? : 'sm';
+    key? :string;
+    video?: IVideo;
 }
 
 type ContainerProps = {
@@ -71,18 +76,26 @@ font-size: 12px;
 color: ${({theme}) => theme.textSoft}`;
 
 
-const Card = ({type}:CardProps) => {
+const Card = ({type, video}:CardProps) => {
+    const [channel, setChannel] = useState<IUser>({});
+    useEffect(()=>{
+        const fetchChannel = async () => {
+            const res = await axios.get(`/users/find/${video?.userId}`);
+            setChannel(res.data);
+        }
+        fetchChannel();
+    },[video?.userId])
+
     return (
         <Link to='/video/test' style={{textDecoration: "none"}}>
             <Container type={type}>
-                <Img type={type}
-                    src="https://i9.ytimg.com/vi_webp/k3Vfj-e1Ma4/mqdefault.webp?v=6277c159&sqp=CIjm8JUG&rs=AOn4CLDeKmf_vlMC1q9RBEZu-XQApzm6sA"/>
+                <Img type={type} src={video?.imgUrl}/>
                 <Details type={type}>
-                    <ChannelImg type={type}/>
+                    <ChannelImg type={type} src={channel.img}/>
                     <Text>
-                        <Title>Test Video</Title>
-                        <ChannelName>Alex</ChannelName>
-                        <Info>660,902 views - 1 day ago</Info>
+                        <Title>{video?.title}</Title>
+                        <ChannelName>{channel.name}</ChannelName>
+                        <Info>{video?.videoViews} views - {format(video?.createdAt!)}</Info>
                     </Text>
                 </Details>
             </Container>

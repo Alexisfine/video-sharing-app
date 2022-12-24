@@ -97,18 +97,24 @@ const Menu = ({darkMode, setDarkMode}:MenuProps) => {
                         AlexTube
                 </Logo>
                 </Link>
-                <Item>
-                    <HomeIcon/>
-                    Home
-                </Item>
-                <Item>
-                    <ExploreOutlined/>
-                    Explore
-                </Item>
-                <Item>
-                    <SubscriptionsOutlined/>
-                    Subscriptions
-                </Item>
+                <Link to='/' style={{textDecoration:'none', color:'inherit'}}>
+                    <Item>
+                        <HomeIcon/>
+                        Home
+                    </Item>
+                </Link>
+                <Link to='trends' style={{textDecoration:'none', color:'inherit'}}>
+                    <Item>
+                        <ExploreOutlined/>
+                        Explore
+                    </Item>
+                </Link>
+                <Link to='subscriptions' style={{textDecoration:'none', color:'inherit'}}>
+                    <Item>
+                        <SubscriptionsOutlined/>
+                        Subscriptions
+                    </Item>
+                </Link>
                 <Hr/>
                 <Item>
                     <VideoLibraryOutlined/>
