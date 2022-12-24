@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import {AddTaskOutlined, ReplyOutlined, ThumbDownOutlined, ThumbUpOutlined} from "@mui/icons-material";
+import Comments from "../components/Comments";
+import Card from "../components/Card";
 
 
 const Container = styled.div`
@@ -138,8 +140,18 @@ const Video = () => {
                     </ChannelInfo>
                     <ChannelSubscribe>Subscribe</ChannelSubscribe>
                 </Channel>
+                <Hr/>
+                <Comments></Comments>
             </Content>
-            <Recommendation>Recommendation</Recommendation>
+            <Recommendation>
+                <Card type='sm'/>
+                <Card type='sm'/>
+                <Card type='sm'/>
+                <Card type='sm'/>
+                <Card type='sm'/>
+                <Card type='sm'/>
+
+            </Recommendation>
         </Container>
     );
 };

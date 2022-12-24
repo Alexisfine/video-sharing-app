@@ -48,7 +48,10 @@ const Item = styled.div`
   align-items: center;
   gap: 20px;
   cursor: pointer;
-  padding: 5px 0`
+  padding: 5px 0;
+  &:hover {
+    background-color: ${({theme}) => theme.soft}
+  }`
 
 const Hr = styled.hr`
   margin: 10px 0px;
@@ -118,7 +121,9 @@ const Menu = ({darkMode, setDarkMode}:MenuProps) => {
                 <Hr/>
                 <Login>
                     Sign in to like videos, comment, and subscribe
-                    <Button><AccountCircleOutlined/>SIGN IN</Button>
+                    <Link to='signin' style={{textDecoration:'none'}}>
+                        <Button><AccountCircleOutlined/>SIGN IN</Button>
+                    </Link>
                 </Login>
                 <Hr/>
                 <Title>BEST OF ALEXTUBE</Title>
