@@ -18,6 +18,8 @@ import {
 } from "@mui/icons-material";
 
 const Container = styled.div`
+  position: sticky;
+  overflow: scroll;
   flex:1;
   background-color:${({theme}) => theme.bg};
   width: 100vh;
