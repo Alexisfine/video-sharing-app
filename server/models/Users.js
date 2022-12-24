@@ -13,7 +13,6 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
     },
     img: {
         type: String,
@@ -26,5 +25,9 @@ const UserSchema = new mongoose.Schema({
         type: [String],
         default: [],
     },
+    fromGoogle: {
+        type: Boolean,
+        default: false,
+    }
 },{timestamps: true});
 module.exports = mongoose.model('User',UserSchema);

@@ -9,7 +9,8 @@ import Video from "./pages/Video";
 import Signin from "./pages/Signin";
 
 const Container = styled.div`
-  display: flex;`
+  display: flex;
+  background-color: green;`
 
 const Main = styled.div`
   flex: 7;

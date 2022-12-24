@@ -17,6 +17,8 @@ import {
     VideoLibraryOutlined
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {RootState} from "../redux/Store";
 
 const Container = styled.div`
   position: sticky;
@@ -88,6 +90,8 @@ type MenuProps = {
 
 
 const Menu = ({darkMode, setDarkMode}:MenuProps) => {
+    const {currentUser} = useSelector((state : RootState) => state.user);
+
     return (
         <Container>
             <Wrapper>
@@ -125,13 +129,16 @@ const Menu = ({darkMode, setDarkMode}:MenuProps) => {
                     History
                 </Item>
                 <Hr/>
-                <Login>
-                    Sign in to like videos, comment, and subscribe
-                    <Link to='signin' style={{textDecoration:'none'}}>
-                        <Button><AccountCircleOutlined/>SIGN IN</Button>
-                    </Link>
-                </Login>
-                <Hr/>
+                {!currentUser  &&
+                    <>
+                        <Login>
+                            Sign in to like videos, comment, and subscribe
+                            <Link to='signin' style={{textDecoration: 'none'}}>
+                                <Button><AccountCircleOutlined/>SIGN IN</Button>
+                            </Link>
+                            </Login>
+                        <Hr/>
+                </>}
                 <Title>BEST OF ALEXTUBE</Title>
                 <Item>
                     <LibraryMusicOutlined/>

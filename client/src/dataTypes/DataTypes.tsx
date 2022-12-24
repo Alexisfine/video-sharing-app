@@ -13,7 +13,6 @@ export interface IVideo {
     tags: string[],
     createdAt: TDate,
     updatedAt: TDate,
-    __v: number
 }
 
 export interface IUser {
