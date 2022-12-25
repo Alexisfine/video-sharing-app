@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import {AccountCircleOutlined, SearchOutlined, VideoCallOutlined} from "@mui/icons-material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useSelector } from 'react-redux';
 import {RootState} from "../redux/Store";
+import Upload from "./Upload";
 
 const Container = styled.div`
     position:sticky;
@@ -24,7 +25,8 @@ border:none;
 background-color:transparent;
 outline: none;
 width: 100%;
-color:${({theme}) => theme.text}`;
+color: ${({theme}) => theme.text} `;
+
 
 const Search = styled.div`
     position:absolute;
@@ -37,7 +39,8 @@ const Search = styled.div`
     justify-content:space-between;
     padding: 5px;
     border: 1px solid #ccc;
-    border-radius: 3px`;
+    border-radius: 3px;
+  color:${({theme}) => theme.text}`;
 
 const Button = styled.button`
     padding: 5px 15px;
@@ -65,28 +68,34 @@ border-radius: 50%;
   background-color: #999;`
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const {currentUser} = useSelector((state : RootState) => state.user);
+    const [query, setQuery] = useState('');
+    const [open, setOpen] = useState(false);
     return (
-        <Container>
-            <Wrapper>
-                <Search>
-                    <Input placeholder='search'/>
-                    <SearchOutlined/>
-                </Search>
-                {currentUser ?
-                    (<User>
-                        <VideoCallOutlined/>
-                        <Avatar src={currentUser.img}/>
-                        {currentUser.name}
-                    </User>)
-                    : (<Link to='signin' style={{textDecoration: 'none'}}>
-                        <Button>
-                            <AccountCircleOutlined/>
-                            SIGN IN
-                        </Button>
-                    </Link>)}
-            </Wrapper>
-        </Container>
+        <>
+            <Container>
+                <Wrapper>
+                    <Search>
+                        <Input placeholder='search' onChange={e=>setQuery(e.target.value)}/>
+                        <SearchOutlined onClick={()=>navigate(`/search?q=${query}`)}/>
+                    </Search>
+                    {currentUser ?
+                        (<User>
+                            <VideoCallOutlined onClick={()=>setOpen(true)}/>
+                            <Avatar src={currentUser.img}/>
+                            {currentUser.name}
+                        </User>)
+                        : (<Link to='signin' style={{textDecoration: 'none'}}>
+                            <Button>
+                                <AccountCircleOutlined/>
+                                SIGN IN
+                            </Button>
+                        </Link>)}
+                </Wrapper>
+            </Container>
+            {open && <Upload setOpen={setOpen}/>}
+        </>
     );
 };
 

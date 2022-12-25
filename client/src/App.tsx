@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Video from "./pages/Video";
 import Signin from "./pages/Signin";
+import Search from "./components/Search";
 
 const Container = styled.div`
   display: flex;
@@ -35,6 +36,7 @@ function App() {
                                 <Route index element={<Home type='random'/>}/>
                                 <Route path='/trends' element={<Home type='trend'/>}/>
                                 <Route path='/subscriptions' element={<Home type='sub'/>}/>
+                                <Route path='/search' element={<Search/>}/>
                                 <Route path='signin' element={<Signin/>}/>
                                 <Route path='video'>
                                     <Route path=':id' element={<Video/>}/>

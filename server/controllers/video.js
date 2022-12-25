@@ -100,7 +100,7 @@ const sub = async (req, res, next) => {
 }
 
 const getByTag = async (req, res, next) => {
-    const tags = req.query.tags.split(",");
+    const tags = req.query.tags?.split(",");
 
     try {
         const videos = await VideoModel.find({tags:{$in:tags}}).limit(20);
