@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
+import {IComment, IUser} from "../dataTypes/DataTypes";
+import axios from "axios";
 
 const Container = styled.div`
 display:flex;
@@ -31,18 +33,27 @@ const Description =  styled.span`
 font-size: 13px;
   color: ${({theme}) => theme.text}`
 
-const Comment = () => {
+type CommentProps = {
+    key: string,
+    comment: IComment
+}
+const Comment = ({key, comment}:CommentProps) => {
+    const [channel, setChannel] = useState<IUser>({});
+    useEffect(()=>{
+        const fetchComment = async () => {
+            const res = await axios.get(`/users/find/${comment.userId}`);
+            setChannel(res.data);
+        }
+        fetchComment();
+    },[comment.userId])
     return (
         <Container>
-            <Avatar src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo"/>
+            <Avatar src={channel.img}/>
             <Details>
-                <Name>John Lee</Name>
+                <Name>{channel.name}</Name>
                 <Date>1 day ago</Date>
                 <Description>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Doloribus laborum delectus unde quaerat dolore culpa sit aliquam
-                    at. Vitae facere ipsum totam ratione exercitationem. Suscipit
-                    animi accusantium dolores ipsam ut.
+                    {comment.description}
                 </Description>
             </Details>
         </Container>

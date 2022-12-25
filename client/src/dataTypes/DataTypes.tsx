@@ -19,4 +19,15 @@ export interface IUser {
     _id?: string,
     name?: string,
     img?: string,
+    subscribers?:number,
+    subscribeUsers?:string[],
+}
+
+export interface IComment {
+    _id: string,
+    userId: string,
+    videoId: string,
+    description?:string,
+    createdAt: TDate,
+    updatedAt: TDate,
 }
